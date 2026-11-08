@@ -535,7 +535,7 @@ front='<path d="M28 41 C26 24 36 16 50 16 C64 16 74 24 72 42 L69 42 C66 30 58 26
 case 'buzz':
 front='<path d="M29 38 C28 25 36 17 50 17 C64 17 72 26 71 39 L69 36 C63 24 39 23 31 37Z" fill="'+ink+'"/>';break;
 }
-return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 128" role="img" aria-label="'+v.name+' 실루엣"><rect width="100" height="128" fill="'+bg+'"/>'+back+'<path d="'+body.slice(3,-2)+'" fill="'+shade+'"/>'+neck+face+front+details+'</svg>';
+return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 128" role="img" aria-label="'+v.name+' 실루엣"><rect width="100" height="128" fill="'+bg+'"/>'+back+'<path d="'+body+'" fill="'+shade+'"/>'+neck+face+front+details+'</svg>';
 }
 const meta=document.createElement('small');meta.className='personal-meta';meta.id='personalMeta';$('dName')?.parentElement.append(meta);
 const dossierImage=document.createElement('div');dossierImage.className='dossier-silhouette';box?.append(dossierImage);
