@@ -501,7 +501,7 @@ const variants=[
 {id:'bun',name:'올림머리',hair:'bun',body:'standard'},
 {id:'buzz',name:'아주 짧은 머리',hair:'buzz',body:'broad'}
 ];let chosen='unknown';
-function art(v){const index=({short:0,bob:4,long:5,tie:6,wave:8,broad:3,slim:1,bun:7,buzz:3,unknown:11})[v.id]??11;const x=index%4,y=Math.floor(index/4);return '<div class="illustrated-silhouette" role="img" aria-label="'+v.name+' 실루엣" style="background-position:'+(-x*100)+'% '+(-y*100)+'%"></div>'}
+function art(v){const index=({short:0,bob:4,long:5,tie:6,wave:8,broad:3,slim:1,bun:7,buzz:3,unknown:11})[v.id]??11;const x=index%4,y=Math.floor(index/4);return '<div class="illustrated-silhouette" role="img" aria-label="'+v.name+' 실루엣" style="background-position:'+(x*100/3)+'% '+(y*50)+'%"></div>'}
 const meta=document.createElement('small');meta.className='personal-meta';meta.id='personalMeta';$('dName')?.parentElement.append(meta);
 const dossierImage=document.createElement('div');dossierImage.className='dossier-silhouette';box?.append(dossierImage);
 function draw(){grid.replaceChildren();variants.forEach(v=>{const b=document.createElement('button');b.type='button';b.className='silhouette-option'+(chosen===v.id?' selected':'');b.setAttribute('role','radio');b.setAttribute('aria-checked',String(chosen===v.id));b.innerHTML=art(v);b.setAttribute('aria-label',v.name);b.title=v.name;b.addEventListener('click',()=>{chosen=v.id;draw();update()});grid.append(b)})}
