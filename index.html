@@ -501,17 +501,42 @@ const variants=[
 {id:'bun',name:'올림머리',hair:'bun',body:'standard'},
 {id:'buzz',name:'아주 짧은 머리',hair:'buzz',body:'broad'}
 ];let chosen='unknown';
-function art(v){const c='#858b93',bg='#e3e5e8';const torso=v.body==='broad'?'M3 128 Q2 91 28 80 Q50 73 72 80 Q98 91 97 128Z':v.body==='slim'?'M20 128 Q18 94 37 80 Q50 76 63 80 Q82 94 80 128Z':'M11 128 Q10 93 32 80 Q50 74 68 80 Q90 93 89 128Z';
-let back='',front='';switch(v.hair){case 'long':back='<path d="M26 35Q23 12 50 12Q77 12 74 35L82 104Q64 111 60 91L40 91Q36 111 18 104Z" fill="'+c+'"/>';front='<path d="M30 32Q30 15 50 15Q71 15 70 32Q57 25 51 22Q42 35 30 36Z" fill="'+c+'"/>';break;
-case 'bob':back='<path d="M27 32Q27 12 50 12Q73 12 73 32L80 73Q69 82 59 73H41Q30 82 20 73Z" fill="'+c+'"/>';front='<path d="M29 31Q30 15 50 15Q70 15 71 31Q60 25 52 20Q40 31 29 33Z" fill="'+c+'"/>';break;
-case 'tie':back='<ellipse cx="77" cy="49" rx="13" ry="20" fill="'+c+'"/>';front='<path d="M29 31Q31 14 50 14Q69 14 71 31L62 26Q45 20 29 34Z" fill="'+c+'"/>';break;
-case 'wave':back='<g fill="'+c+'"><circle cx="31" cy="27" r="12"/><circle cx="43" cy="18" r="12"/><circle cx="57" cy="18" r="12"/><circle cx="70" cy="28" r="12"/><circle cx="24" cy="41" r="10"/><circle cx="76" cy="42" r="10"/></g>';break;
-case 'bun':back='<circle cx="50" cy="10" r="14" fill="'+c+'"/>';front='<path d="M28 32Q28 14 50 15Q72 14 72 32Q55 24 50 22Q43 30 28 32Z" fill="'+c+'"/>';break;
-case 'short':front='<path d="M29 32L26 22L36 24L40 14L50 20L62 13L65 23L74 21L71 35Q53 26 44 29Q36 32 29 32Z" fill="'+c+'"/>';break;
-case 'buzz':front='<path d="M29 33Q27 17 50 16Q73 17 71 33Z" fill="'+c+'"/>';break;}
-const head='<ellipse cx="50" cy="46" rx="21" ry="27" fill="'+c+'"/>';
-const question=v.hair==='unknown'?'<text x="50" y="58" text-anchor="middle" font-size="33" font-weight="800" fill="#f4f5f7" font-family="system-ui,sans-serif">?</text>':'';
-return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 128" role="img" aria-label="'+v.name+' 실루엣"><rect width="100" height="128" fill="'+bg+'"/>'+back+torso+head+front+question+'</svg>'}
+function art(v){
+const ink='#767e88',shade='#929aa3',bg='#e6e8eb';
+const body={
+standard:'M5 128 C6 111 10 96 24 89 C32 84 38 84 41 78 L41 70 L59 70 L59 78 C64 84 73 84 81 89 C94 97 97 112 98 128 Z',
+slim:'M15 128 C16 108 21 94 34 88 C39 85 42 83 43 77 L43 69 L57 69 L57 77 C59 83 63 85 69 88 C81 95 85 110 86 128 Z',
+broad:'M0 128 C0 106 6 93 23 86 C34 82 39 82 41 76 L41 69 L59 69 L59 76 C62 82 68 82 79 86 C95 93 100 107 100 128 Z'
+}[v.body]||'';
+const neck='<path d="M41 67 L41 79 Q50 87 59 79 L59 67Z" fill="'+ink+'"/>';
+const face='<path d="M29 36 C29 23 38 18 50 18 C63 18 71 26 71 39 L70 50 C69 60 65 69 57 75 C53 78 47 78 43 75 C35 69 31 60 30 50 Z" fill="'+ink+'"/>';
+let back='',front='',details='';
+switch(v.hair){
+case 'unknown':
+front='<path d="M29 37 C26 19 37 13 50 13 C66 13 74 23 71 39 C65 30 61 29 55 28 C43 34 38 30 29 37Z" fill="'+ink+'"/>';
+details='<text x="50" y="58" text-anchor="middle" font-family="Arial,sans-serif" font-size="31" font-weight="700" fill="#f7f8fa">?</text>';break;
+case 'short':
+front='<path d="M27 39 C25 31 27 21 34 17 C37 10 47 12 52 14 C61 9 70 16 72 23 C76 31 72 38 70 43 L67 33 C61 32 57 29 53 26 C45 33 39 33 32 33 L31 45Z" fill="'+ink+'"/>';break;
+case 'bob':
+back='<path d="M27 39 C24 22 35 11 50 11 C66 11 76 23 74 41 C75 56 79 66 81 78 Q70 85 60 78 L39 78 Q29 85 19 78 C23 65 25 54 27 39Z" fill="'+ink+'"/>';
+front='<path d="M28 42 C26 26 35 16 50 16 C65 16 73 28 72 43 L68 43 L65 32 C57 31 50 25 47 23 C44 32 35 36 31 36 L31 47Z" fill="'+ink+'"/>';break;
+case 'long':
+back='<path d="M28 38 C25 22 34 11 50 11 C67 11 75 23 73 39 C73 63 79 82 83 106 C73 110 67 106 62 99 L60 72 L39 72 L37 99 C32 107 25 110 17 106 C23 80 28 59 28 38Z" fill="'+ink+'"/>';
+front='<path d="M28 43 C25 25 36 16 50 16 C64 16 74 26 72 43 L68 42 C66 33 61 30 57 25 C49 32 41 33 31 37 L31 49Z" fill="'+ink+'"/>';break;
+case 'tie':
+back='<path d="M69 28 C81 29 88 40 86 55 C85 69 79 80 86 92 C70 91 69 78 70 65 L66 42Z" fill="'+ink+'"/>';
+front='<path d="M28 41 C26 24 35 15 49 15 C63 15 73 24 72 42 L69 43 C67 31 59 27 51 23 C46 31 38 33 31 34 L31 45Z" fill="'+ink+'"/>';break;
+case 'wave':
+back='<path d="M25 45 C19 35 23 24 29 22 C27 12 38 10 43 13 C49 7 58 9 62 14 C71 12 78 20 75 29 C83 38 77 46 75 51 L77 65 C70 69 66 66 65 60 L35 60 C32 69 25 69 22 64Z" fill="'+ink+'"/>';
+front='<path d="M28 42 C25 34 30 27 36 27 C36 20 44 19 49 23 C55 17 63 23 63 28 C70 26 74 34 70 43 L67 40 C62 33 59 33 55 32 C49 37 41 33 36 36 L32 47Z" fill="'+ink+'"/>';break;
+case 'bun':
+back='<path d="M36 19 C30 9 35 3 45 4 C49 -1 58 2 61 9 C69 10 71 17 67 23Z" fill="'+ink+'"/>';
+front='<path d="M28 41 C26 24 36 16 50 16 C64 16 74 24 72 42 L69 42 C66 30 58 26 50 22 C42 30 36 31 31 35 L31 45Z" fill="'+ink+'"/>';break;
+case 'buzz':
+front='<path d="M29 38 C28 25 36 17 50 17 C64 17 72 26 71 39 L69 36 C63 24 39 23 31 37Z" fill="'+ink+'"/>';break;
+}
+return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 128" role="img" aria-label="'+v.name+' 실루엣"><rect width="100" height="128" fill="'+bg+'"/>'+back+'<path d="'+body.slice(3,-2)+'" fill="'+shade+'"/>'+neck+face+front+details+'</svg>';
+}
 const meta=document.createElement('small');meta.className='personal-meta';meta.id='personalMeta';$('dName')?.parentElement.append(meta);
 const dossierImage=document.createElement('div');dossierImage.className='dossier-silhouette';box?.append(dossierImage);
 function draw(){grid.replaceChildren();variants.forEach(v=>{const b=document.createElement('button');b.type='button';b.className='silhouette-option'+(chosen===v.id?' selected':'');b.setAttribute('role','radio');b.setAttribute('aria-checked',String(chosen===v.id));b.innerHTML=art(v)+'<span>'+v.name+'</span>';b.addEventListener('click',()=>{chosen=v.id;draw();update()});grid.append(b)})}
